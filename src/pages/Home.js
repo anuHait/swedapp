@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate , Link} from "react-router-dom"
 import axios from 'axios';
 import Web3 from 'web3';
 
@@ -9,6 +9,7 @@ function Home() {
   const [charity, setCharity] = useState('');
   const [walletAddress, setWalletAddress] = useState(null);
   const [reg, setReg] = useState(false);
+  const Navigate = useNavigate();
 
   const handlename = (e) => {
     setName(e.target.value);
@@ -45,6 +46,11 @@ function Home() {
         const address = accounts[0];
         setWalletAddress(address);
         console.log('Wallet connected:', address);
+        const data = await axios.get(`http://localhost:4000/wallet/${address}`)
+        console.log(data)
+        if(data.data!=""){
+          Navigate('/donate')
+        }
       } catch (error) {
         console.error('Failed to connect wallet:', error);
       }
@@ -54,16 +60,7 @@ function Home() {
   };
 
   if (reg) {
-    return (
-      <div className='flex flex-row gap-6'>
-      <Link to='/donate-money'>
-        <button className='border-2 border-blue-900 p-3 text-3xl'>Donate Money</button>
-      </Link>
-      <Link to='/donate-items'>
-        <button className='border-2 border-blue-900 p-3 text-3xl'>Donate Items</button>
-      </Link>
-      </div>
-    );
+   Navigate('/donate')
   }else{
     if(walletAddress){
       return (
