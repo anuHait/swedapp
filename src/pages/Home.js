@@ -2,7 +2,8 @@ import { useState, React } from 'react';
 import { useNavigate , Link} from "react-router-dom"
 import axios from 'axios';
 import Web3 from 'web3';
-
+import { FaWallet } from "react-icons/fa6";
+import donate from '../assets/donate.jpg'
 function Home() {
   const [name, setName] = useState('');
   const [donor, setDonor] = useState('');
@@ -64,38 +65,45 @@ function Home() {
   }else{
     if(walletAddress){
       return (
-        <div className='flex flex-row gap-6'>
+        <div className='flex flex-row gap-4'>
+        <div className='flex flex-col m-10 gap-6 justify-center items-center'>
         
-        <div className='border-2 border-blue-900 p-3 text-3xl'>
-          <h1>Register</h1>
-          <form>
+        <div className='border-2 border-blue-900 rounded-xl p-4 text-2xl w-[75%] '>
+          <h1 className='font-semibold mb-2'>Register</h1>
+          <form className='flex flex-col gap-2'>
             <input
               type='text'
               placeholder='Name'
-              className='border-2 border-blue-900 p-3 text-3xl'
+              className='border-2 border-blue-900 p-3 text-3xl rounded-xl'
               onChange={handlename}
             />
+            <h1 className='font-semibold'>Are you a donor or a charity?</h1>
             <label>
-              Donor
-              <input type='radio' name='gender' value='donor' onChange={handledonor} />
+              
+              <input type='radio' name='gender' value='donor' onChange={handledonor} className='mr-2' />Donor
             </label>
             <label>
-              Charity
-              <input type='radio' name='gender' value='charity' onChange={handlecharity} />
+              
+              <input type='radio' name='gender' value='charity' onChange={handlecharity} className='mr-2'/>Charity
             </label>
-            <button className='border-2 border-blue-900 p-3 text-3xl' onClick={handlesubmit}>
+            <br/>
+            <button className='border-2 border-blue-900 p-3 text-3xl rounded-xl hover:bg-blue-800 hover:text-white font-semibold' onClick={handlesubmit}>
               Submit
             </button>
           </form>
         </div>
-        <h1 className='border-2 border-blue-900 p-3 text-3xl'>Wallet Address: {walletAddress}</h1>
+        <h1 className='border-2 border-blue-900 p-3 rounded-xl text-xl font-semibold flex flex-row gap-2 items-center w-[85%] '>
+          <FaWallet className='inline-block text-lg text-gray-700' />
+          Wallet Address: {walletAddress}</h1>
       </div>
-      
+      <div className='w-[58%] h-[85%] mt-20'>
+      <img src={donate} alt="donate" className=' rounded-xl'/></div>
+      </div>
     );
     }else{
       return (
-        <div className='flex flex-row gap-6'>
-        <button className='border-2 border-blue-900 p-3 text-3xl' onClick={handleConnectWallet}>Connect Wallet</button>
+        <div className='flex flex-row gap-6' >
+        <button className='border-2 border-blue-900 p-3 text-3xl w-[65%] ' onClick={handleConnectWallet}>Connect Wallet</button>
       </div>
       
     );
